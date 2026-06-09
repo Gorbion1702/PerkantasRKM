@@ -267,14 +267,26 @@ function PersonalView({ entries, dates, today, currentUser, tab, onCellClick, on
             return (
               <div key={di} className="grid-cell" onClick={() => onCellClick(di, ti)}>
                 {personal.map(e => (
+                  // <span key={e.id} className="entry personal"
+                  //   title={e.note || e.title}
+                  //   onClick={ev => { ev.stopPropagation(); onEntryClick(di, ti, e, 'personal') }}>
+                  //   {e.title}
+                  // </span>
                   <span key={e.id} className="entry personal"
+                    style={{ minHeight: `${e.duration * 44 * 2 - 6}px`, display: 'flex', alignItems: 'flex-start' }}
                     title={e.note || e.title}
                     onClick={ev => { ev.stopPropagation(); onEntryClick(di, ti, e, 'personal') }}>
                     {e.title}
                   </span>
                 ))}
                 {shared.map(e => (
+                  // <span key={e.id} className="entry shared"
+                  //   title={e.note || e.title}
+                  //   onClick={ev => { ev.stopPropagation(); onEntryClick(di, ti, e, 'shared') }}>
+                  //   {e.title}
+                  // </span>
                   <span key={e.id} className="entry shared"
+                    style={{ minHeight: `${e.duration * 44 * 2 - 6}px`, display: 'flex', alignItems: 'flex-start' }}
                     title={e.note || e.title}
                     onClick={ev => { ev.stopPropagation(); onEntryClick(di, ti, e, 'shared') }}>
                     {e.title}
