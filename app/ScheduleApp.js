@@ -306,22 +306,38 @@ function AllView({ entries, dates, today, currentUser }) {
                 const sharedInDay = entries.filter(e => e.day_index === di && e.type === 'shared')
                 const isMine = s === currentUser
                 return (
+                  // <td key={di}>
+                  //   {personal.map(e => (
+                  //     <span key={e.id} className="mini-entry"
+                  //       style={{ background: isMine ? 'var(--green-light)' : 'var(--gray-light)', color: isMine ? 'var(--green-dark)' : 'var(--gray-dark)' }}
+                  //       title={`${TIMES[e.time_index]} · ${e.title}`}>
+                  //       {TIMES[e.time_index]} {e.title}
+                  //     </span>
+                  //   ))}
+                  //   {s === STAFF[0] && sharedInDay.map(e => (
+                  //     <span key={e.id} className="mini-entry"
+                  //       style={{ background: 'var(--blue-light)', color: 'var(--blue-dark)' }}
+                  //       title={`${TIMES[e.time_index]} · ${e.title} (bersama)`}>
+                  //       👥 {e.title}
+                  //     </span>
+                  //   ))}
+                  // </td>
                   <td key={di}>
-                    {personal.map(e => (
-                      <span key={e.id} className="mini-entry"
-                        style={{ background: isMine ? 'var(--green-light)' : 'var(--gray-light)', color: isMine ? 'var(--green-dark)' : 'var(--gray-dark)' }}
-                        title={`${TIMES[e.time_index]} · ${e.title}`}>
-                        {TIMES[e.time_index]} {e.title}
-                      </span>
-                    ))}
-                    {s === STAFF[0] && sharedInDay.map(e => (
-                      <span key={e.id} className="mini-entry"
-                        style={{ background: 'var(--blue-light)', color: 'var(--blue-dark)' }}
-                        title={`${TIMES[e.time_index]} · ${e.title} (bersama)`}>
-                        👥 {e.title}
-                      </span>
-                    ))}
-                  </td>
+                  {personal.map(e => (
+                    <span key={e.id} className="mini-entry"
+                      style={{ background: isMine ? 'var(--green-light)' : 'var(--gray-light)', color: isMine ? 'var(--green-dark)' : 'var(--gray-dark)' }}
+                      title={`${TIMES[e.time_index]} · ${e.title}`}>
+                      {TIMES[e.time_index]} {e.title}
+                    </span>
+                  ))}
+                  {sharedInDay.map(e => (
+                    <span key={e.id} className="mini-entry"
+                      style={{ background: 'var(--blue-light)', color: 'var(--blue-dark)' }}
+                      title={`${TIMES[e.time_index]} · ${e.title} (bersama)`}>
+                      👥 {e.title}
+                    </span>
+                  ))}
+                </td>
                 )
               })}
             </tr>
