@@ -16,15 +16,28 @@ const TIMES = [
 const MONTHS = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Ags','Sep','Okt','Nov','Des']
 
 function getMonday(offset = 0) {
-  const d = new Date()
-  const day = d.getDay()
-  const diff = d.getDate() - day + (day === 0 ? -6 : 1)
-  const m = new Date(d)
+  // const d = new Date()
+  // const day = d.getDay()
+  // const diff = d.getDate() - day + (day === 0 ? -6 : 1)
+  // const m = new Date(d)
+  // m.setDate(diff + offset * 7)
+  // m.setHours(0, 0, 0, 0)
+  // return m
+  const now = new Date()
+  const localDate = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+  const day = localDate.getDay()
+  const diff = localDate.getDate() - day + (day === 0 ? -6 : 1)
+  const m = new Date(localDate)
   m.setDate(diff + offset * 7)
-  m.setHours(0, 0, 0, 0)
   return m
 }
-function fmtDate(d) { return d.toISOString().split('T')[0] }
+// function fmtDate(d) { return d.toISOString().split('T')[0] }
+function fmtDate(d) {
+  const y = d.getFullYear()
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  const dd = String(d.getDate()).padStart(2, '0')
+  return `${y}-${m}-${dd}`
+}
 function getWeekDates(offset) {
   const mon = getMonday(offset)
   return Array.from({ length: 7 }, (_, i) => {
