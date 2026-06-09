@@ -9,9 +9,9 @@ const STAFF = [
 const DAYS_SHORT = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min']
 const DAYS_FULL = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu']
 const TIMES = [
-  '06:00','07:00','08:00','09:00','10:00','11:00','12:00','13:00',
-  '14:00','15:00','16:00','17:00','18:00','19:00',
-  '20:00','21:00','22:00','23:00'
+  '06:00','06:30','07:00','07:30','08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30',
+  '13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30',
+  '20:00','20:30','21:00','21:30','22:00','22:30','23:00'
 ]
 const MONTHS = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Ags','Sep','Okt','Nov','Des']
 
@@ -374,6 +374,13 @@ function EntryModal({ modal, dates, tab, saving, currentUser, onSave, onDelete, 
               <option value={1}>1 jam</option>
               <option value={2}>2 jam</option>
               <option value={3}>3 jam</option>
+              <option value={4}>4 jam</option>
+              <option value={5}>5 jam</option>
+              <option value={6}>6 jam</option>
+              <option value={7}>7 jam</option>
+              <option value={8}>8 jam</option>
+              <option value={9}>9 jam</option>
+              <option value={10}>10 jam</option>         
             </select>
           </div>
           {mode === 'add' && (
