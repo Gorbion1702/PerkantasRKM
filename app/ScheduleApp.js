@@ -438,14 +438,17 @@ function AllView({ entries, dates, today, currentUser }) {
                   {personal.map(e => (
                     <span key={e.id} className="mini-entry"
                       style={{ background: isMine ? 'var(--green-light)' : 'var(--gray-light)', color: isMine ? 'var(--green-dark)' : 'var(--gray-dark)' }}
-                      title={`${TIMES[e.time_index]} · ${e.title}`}>
+                      // title={`${TIMES[e.time_index]} · ${e.title}`}>
+                      // {TIMES[e.time_index]} {e.title}
+                      title={`${TIMES[e.time_index]} · ${e.title}${e.note ? '\n' + e.note : ''}`}>
                       {TIMES[e.time_index]} {e.title}
                     </span>
                   ))}
                   {sharedInDay.map(e => (
                     <span key={e.id} className="mini-entry"
                       style={{ background: 'var(--blue-light)', color: 'var(--blue-dark)' }}
-                      title={`${TIMES[e.time_index]} · ${e.title} (bersama)`}>
+                      // title={`${TIMES[e.time_index]} · ${e.title} (bersama)`}>
+                      title={`${TIMES[e.time_index]} · ${e.title} (bersama)${e.note ? '\n' + e.note : ''}`}>
                       👥 {e.title}
                     </span>
                   ))}
