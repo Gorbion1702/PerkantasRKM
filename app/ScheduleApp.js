@@ -405,11 +405,17 @@ function AllView({ entries, dates, today, currentUser }) {
               {Array.from({ length: 7 }, (_, di) => {
                 const dayEntries = entries.filter(e => e.day_index === di && (e.author === s || e.type === 'shared'))
                 // deduplicate shared entries shown once per day col
-                const personal = dayEntries.filter(e => e.type === 'personal' && e.author === s)
+                // const personal = dayEntries.filter(e => e.type === 'personal' && e.author === s)
+                const personal = dayEntries
+                  .filter(e => e.type === 'personal' && e.author === s)
+                  .sort((a, b) => a.time_index - b.time_index)
                 const shared = di === 0
                   ? entries.filter(e => e.type === 'shared')
                   : [] // show shared only in first occurrence per day across rows – actually show per cell
-                const sharedInDay = entries.filter(e => e.day_index === di && e.type === 'shared')
+                // const sharedInDay = entries.filter(e => e.day_index === di && e.type === 'shared')
+                const sharedInDay = entries
+                  .filter(e => e.day_index === di && e.type === 'shared')
+                  .sort((a, b) => a.time_index - b.time_index)
                 const isMine = s === currentUser
                 return (
                   // <td key={di}>
