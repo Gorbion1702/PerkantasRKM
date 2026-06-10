@@ -292,7 +292,7 @@ function PersonalView({ entries, dates, today, currentUser, tab, onCellClick, on
               {allEntries.map(e => {
                 const topPx = e.time_index * CELL_HEIGHT
                 // const heightPx = e.duration * CELL_HEIGHT * 2 - 4
-                const heightPx = (e.duration * 2) * CELL_HEIGHT - 4
+                const heightPx = (e.duration * 2) * CELL_HEIGHT + CELL_HEIGHT - 4
                 return (
                   <div key={e.id}
                     className={`entry ${e.cls}`}
