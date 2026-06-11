@@ -269,22 +269,20 @@ function PersonalView({ entries, dates, today, currentUser, tab, onCellClick, on
   }
 
   return (
-    <div className="schedule-card">
+  <div className="schedule-card">
     <div className="grid-scroll-wrap">
+      <div className="grid-inner">
 
-      {/* Header tanggal */}
-      <div className="grid-header grid-inner">
-        <div className="gh-cell time-col-sticky" style={{ fontSize: 11 }}>Waktu</div>
+        {/* Header waktu (pojok kiri atas) */}
+        <div className="gh-cell time-col-sticky" style={{ fontSize: 11, position: 'sticky', top: 0, zIndex: 15, background: 'var(--bg2)' }}>Waktu</div>
+
+        {/* Header tanggal */}
         {dates.map((d, i) => (
-          <div key={i} className={`gh-cell${fmtDate(d) === today ? ' today' : ''}`}>
+          <div key={i} className={`gh-cell${fmtDate(d) === today ? ' today' : ''}`} style={{ position: 'sticky', top: 0, zIndex: 10, background: 'var(--bg2)' }}>
             <div>{DAYS_SHORT[i]}</div>
             <div className="day-num">{d.getDate()}</div>
           </div>
         ))}
-      </div>
-
-      {/* Grid isi */}
-      <div className="grid-inner">
 
         {/* Kolom waktu */}
         <div className="time-col-sticky">
@@ -314,7 +312,7 @@ function PersonalView({ entries, dates, today, currentUser, tab, onCellClick, on
               ))}
 
               {allEntries.map((e, idx) => {
-                const topPx = e.time_index * CELL_HEIGHT
+                const topPx = (e.time_index + 1) * CELL_HEIGHT
                 const heightPx = (e.duration * 2) * CELL_HEIGHT + CELL_HEIGHT - 4
                 const color = e.cls === 'shared'
                   ? { bg: 'var(--blue-l)', text: 'var(--blue-d)' }
