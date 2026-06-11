@@ -304,23 +304,23 @@ function PersonalView({ entries, dates, today, currentUser, tab, onCellClick, on
               {allEntries.map((e, idx) => {
                 const topPx = e.time_index * CELL_HEIGHT
                 const heightPx = (e.duration * 2) * CELL_HEIGHT + CELL_HEIGHT - 4
-                const color = e.cls === 'shared' 
+                const color = e.cls === 'shared'
                   ? { bg: 'var(--blue-l)', text: 'var(--blue-d)' }
                   : (COLORS[e.color] || COLORS.green)
 
-                // Cek apakah ada entry lain yang overlap di waktu yang sama
-                const overlaps = allEntries.filter((other, otherIdx) =>
-                  otherIdx !== idx &&
-                  other.time_index < e.time_index + e.duration * 2 &&
-                  other.time_index + other.duration * 2 > e.time_index
-                )
-                const hasOverlap = overlaps.length > 0
-                const colIndex = hasOverlap ? allEntries.filter((other, otherIdx) =>
-                  otherIdx < idx &&
-                  other.time_index < e.time_index + e.duration * 2 &&
-                  other.time_index + other.duration * 2 > e.time_index
-                ).length : 0
-                const totalCols = hasOverlap ? overlaps.length + 1 : 1
+                const eEnd = e.time_index + e.duration * 2
+                const overlappingBefore = allEntries.filter((other, otherIdx) => {
+                  if (otherIdx >= idx) return false
+                  const otherEnd = other.time_index + other.duration * 2
+                  return other.time_index < eEnd && otherEnd > e.time_index
+                })
+                const overlappingAll = allEntries.filter((other, otherIdx) => {
+                  if (otherIdx === idx) return false
+                  const otherEnd = other.time_index + other.duration * 2
+                  return other.time_index < eEnd && otherEnd > e.time_index
+                })
+                const totalCols = overlappingAll.length + 1
+                const colIndex = overlappingBefore.length
                 const colWidth = 100 / totalCols
                 const leftPct = colIndex * colWidth
 
