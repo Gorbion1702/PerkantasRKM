@@ -291,8 +291,7 @@ function PersonalView({ entries, dates, today, currentUser, tab, onCellClick, on
             </div>
           ))}
         </div>
-      </div>
-          
+
         {/* Kolom hari */}
         {Array.from({ length: 7 }, (_, di) => {
           const personal = tab === 'personal'
@@ -371,64 +370,9 @@ function PersonalView({ entries, dates, today, currentUser, tab, onCellClick, on
         })}
       </div>
     </div>
+  </div>
   )
 }
-// function PersonalView({ entries, dates, today, currentUser, tab, onCellClick, onEntryClick }) {
-//   return (
-//     <div className="schedule-card">
-//       <div className="grid-header">
-//         <div className="gh-cell" style={{ fontSize: 11 }}>Waktu</div>
-//         {dates.map((d, i) => (
-//           <div key={i} className={`gh-cell${fmtDate(d) === today ? ' today' : ''}`}>
-//             <div>{DAYS_SHORT[i]}</div>
-//             <div className="day-num">{d.getDate()}</div>
-//           </div>
-//         ))}
-//       </div>
-//       {TIMES.map((t, ti) => (
-//         <div key={ti} className="grid-row">
-//           <div className="time-col">{t}</div>
-//           {Array.from({ length: 7 }, (_, di) => {
-//             const personal = tab === 'personal'
-//               ? entries.filter(e => e.day_index === di && e.time_index === ti && e.type === 'personal' && e.author === currentUser)
-//               : []
-//             const shared = entries.filter(e => e.day_index === di && e.time_index === ti && e.type === 'shared')
-//             return (
-//               <div key={di} className="grid-cell" onClick={() => onCellClick(di, ti)}>
-//                 {personal.map(e => (
-//                   // <span key={e.id} className="entry personal"
-//                   //   title={e.note || e.title}
-//                   //   onClick={ev => { ev.stopPropagation(); onEntryClick(di, ti, e, 'personal') }}>
-//                   //   {e.title}
-//                   // </span>
-//                   <span key={e.id} className="entry personal"
-//                     style={{ minHeight: `${e.duration * 44 * 2 - 6}px`, display: 'flex', alignItems: 'flex-start' }}
-//                     title={e.note || e.title}
-//                     onClick={ev => { ev.stopPropagation(); onEntryClick(di, ti, e, 'personal') }}>
-//                     {e.title}
-//                   </span>
-//                 ))}
-//                 {shared.map(e => (
-//                   // <span key={e.id} className="entry shared"
-//                   //   title={e.note || e.title}
-//                   //   onClick={ev => { ev.stopPropagation(); onEntryClick(di, ti, e, 'shared') }}>
-//                   //   {e.title}
-//                   // </span>
-//                   <span key={e.id} className="entry shared"
-//                     style={{ minHeight: `${e.duration * 44 * 2 - 6}px`, display: 'flex', alignItems: 'flex-start' }}
-//                     title={e.note || e.title}
-//                     onClick={ev => { ev.stopPropagation(); onEntryClick(di, ti, e, 'shared') }}>
-//                     {e.title}
-//                   </span>
-//                 ))}
-//               </div>
-//             )
-//           })}
-//         </div>
-//       ))}
-//     </div>
-//   )
-// }
 
 // ---- AllView ----
 function AllView({ entries, dates, today, currentUser }) {
