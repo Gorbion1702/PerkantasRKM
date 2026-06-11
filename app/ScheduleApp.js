@@ -270,6 +270,9 @@ function PersonalView({ entries, dates, today, currentUser, tab, onCellClick, on
 
   return (
     <div className="schedule-card">
+    <div className="grid-scroll-wrap">
+
+      {/* Header tanggal */}
       <div className="grid-header grid-inner">
         <div className="gh-cell time-col-sticky" style={{ fontSize: 11 }}>Waktu</div>
         {dates.map((d, i) => (
@@ -280,9 +283,9 @@ function PersonalView({ entries, dates, today, currentUser, tab, onCellClick, on
         ))}
       </div>
 
-      {/* <div style={{ display: 'grid', gridTemplateColumns: '72px repeat(7, 1fr)' }}> */}
-      <div className="grid-scroll-wrap">
-        <div className="grid-inner">
+      {/* Grid isi */}
+      <div className="grid-inner">
+
         {/* Kolom waktu */}
         <div className="time-col-sticky">
           {TIMES.map((t, ti) => (
@@ -302,7 +305,6 @@ function PersonalView({ entries, dates, today, currentUser, tab, onCellClick, on
 
           return (
             <div key={di} style={{ position: 'relative', borderLeft: '0.5px solid var(--border)' }}>
-              {/* Sel klik per slot waktu */}
               {TIMES.map((_, ti) => (
                 <div key={ti} style={{ height: CELL_HEIGHT, borderTop: '0.5px solid var(--border)', cursor: 'pointer' }}
                   onClick={() => onCellClick(di, ti)}
@@ -311,14 +313,12 @@ function PersonalView({ entries, dates, today, currentUser, tab, onCellClick, on
                 />
               ))}
 
-              {/* Entry mengambang */}
               {allEntries.map((e, idx) => {
                 const topPx = e.time_index * CELL_HEIGHT
                 const heightPx = (e.duration * 2) * CELL_HEIGHT + CELL_HEIGHT - 4
                 const color = e.cls === 'shared'
                   ? { bg: 'var(--blue-l)', text: 'var(--blue-d)' }
                   : (COLORS[e.color] || COLORS.green)
-
                 const eEnd = e.time_index + e.duration * 2
                 const overlappingBefore = allEntries.filter((other, otherIdx) => {
                   if (otherIdx >= idx) return false
