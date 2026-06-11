@@ -329,7 +329,9 @@ function PersonalView({ entries, dates, today, currentUser, tab, onCellClick, on
                     className="entry"
                     style={{
                       position: 'absolute',
-                      top: topPx, left: 2, right: 2,
+                      top: topPx,
+                      left: `calc(${leftPct}% + 2px)`,
+                      width: `calc(${colWidth}% - 4px)`,
                       height: heightPx,
                       margin: 0, zIndex: 1,
                       overflow: 'hidden',
