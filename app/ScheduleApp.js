@@ -124,6 +124,7 @@ export default function ScheduleApp() {
       title: formData.title,
       duration: formData.dur,
       note: formData.note || '',
+      color: formData.color || 'green',
       author: currentUser,
       type: isShared ? 'shared' : 'personal',
     }
@@ -247,6 +248,17 @@ export default function ScheduleApp() {
 function PersonalView({ entries, dates, today, currentUser, tab, onCellClick, onEntryClick }) {
   const CELL_HEIGHT = 44
 
+  const COLORS = {
+    green:  { bg: '#9FE1CB', text: '#085041' },
+    blue:   { bg: '#93C5FD', text: '#1E3A5F' },
+    purple: { bg: '#C4B5FD', text: '#3B0764' },
+    yellow: { bg: '#FDE68A', text: '#78350F' },
+    red:    { bg: '#FCA5A5', text: '#7F1D1D' },
+    orange: { bg: '#FDBA74', text: '#7C2D12' },
+    pink:   { bg: '#F9A8D4', text: '#831843' },
+    gray:   { bg: '#D1D5DB', text: '#1F2937' },
+  }
+
   return (
     <div className="schedule-card">
       <div className="grid-header">
@@ -290,25 +302,57 @@ function PersonalView({ entries, dates, today, currentUser, tab, onCellClick, on
 
               {/* Entry mengambang */}
               {allEntries.map(e => {
+                // const topPx = e.time_index * CELL_HEIGHT
+                // // const heightPx = e.duration * CELL_HEIGHT * 2 - 4
+                // const heightPx = (e.duration * 2) * CELL_HEIGHT + CELL_HEIGHT - 4
+                // return (
+                //   <div key={e.id}
+                //     className={`entry ${e.cls}`}
+                //     style={{
+                //       position: 'absolute',
+                //       top: topPx,
+                //       left: 2,
+                //       right: 2,
+                //       height: heightPx,
+                //       margin: 0,
+                //       zIndex: 1,
+                //       overflow: 'hidden',
+                //       cursor: 'pointer',
+                //       display: 'flex',
+                //       flexDirection: 'column',
+                //       justifyContent: 'flex-start',
+                //     }}
+                //     title={e.note || e.title}
+                //     onClick={ev => { ev.stopPropagation(); onEntryClick(di, e.time_index, e, e.cls) }}
+                //   >
+                //     <span style={{ fontWeight: 600, fontSize: 11 }}>{e.title}</span>
+                //     {e.duration > 0.5 && <span style={{ fontSize: 10, opacity: 0.8 }}>{TIMES[e.time_index]} – {TIMES[e.time_index + e.duration * 2] || ''}</span>}
+                //   </div>
+                // )
                 const topPx = e.time_index * CELL_HEIGHT
-                // const heightPx = e.duration * CELL_HEIGHT * 2 - 4
                 const heightPx = (e.duration * 2) * CELL_HEIGHT + CELL_HEIGHT - 4
+                const color = e.cls === 'shared' 
+                  ? { bg: 'var(--blue-l)', text: 'var(--blue-d)' }
+                  : (COLORS[e.color] || COLORS.green)
                 return (
                   <div key={e.id}
-                    className={`entry ${e.cls}`}
+                    className="entry"
                     style={{
                       position: 'absolute',
-                      top: topPx,
-                      left: 2,
-                      right: 2,
+                      top: topPx, left: 2, right: 2,
                       height: heightPx,
-                      margin: 0,
-                      zIndex: 1,
+                      margin: 0, zIndex: 1,
                       overflow: 'hidden',
                       cursor: 'pointer',
                       display: 'flex',
                       flexDirection: 'column',
                       justifyContent: 'flex-start',
+                      background: color.bg,
+                      color: color.text,
+                      borderRadius: 4,
+                      padding: '3px 6px',
+                      fontSize: 11,
+                      fontWeight: 500,
                     }}
                     title={e.note || e.title}
                     onClick={ev => { ev.stopPropagation(); onEntryClick(di, e.time_index, e, e.cls) }}
@@ -475,6 +519,7 @@ function EntryModal({ modal, dates, tab, saving, currentUser, onSave, onDelete, 
     title: entry?.title || '',
     dur: entry?.duration || 1,
     note: entry?.note || '',
+    color: entry?.color || 'green',
     type: tab === 'shared' ? 'shared' : 'personal',
   })
 
@@ -523,6 +568,34 @@ function EntryModal({ modal, dates, tab, saving, currentUser, onSave, onDelete, 
               </select>
             </div>
           )}
+          <div className="form-group">
+            <label>Warna</label>
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+              {[
+                { value: 'green', bg: '#9FE1CB', text: '#085041', label: 'Hijau' },
+                { value: 'blue', bg: '#93C5FD', text: '#1E3A5F', label: 'Biru' },
+                { value: 'purple', bg: '#C4B5FD', text: '#3B0764', label: 'Ungu' },
+                { value: 'yellow', bg: '#FDE68A', text: '#78350F', label: 'Kuning' },
+                { value: 'red', bg: '#FCA5A5', text: '#7F1D1D', label: 'Merah' },
+                { value: 'orange', bg: '#FDBA74', text: '#7C2D12', label: 'Oranye' },
+                { value: 'pink', bg: '#F9A8D4', text: '#831843', label: 'Pink' },
+                { value: 'gray', bg: '#D1D5DB', text: '#1F2937', label: 'Abu' },
+              ].map(c => (
+                <div key={c.value}
+                  onClick={() => isOwner && setForm(f => ({ ...f, color: c.value }))}
+                  title={c.label}
+                  style={{
+                    width: 28, height: 28,
+                    borderRadius: '50%',
+                    background: c.bg,
+                    cursor: isOwner ? 'pointer' : 'default',
+                    border: form.color === c.value ? '3px solid var(--text)' : '3px solid transparent',
+                    transition: 'border 0.15s',
+                  }}
+                />
+              ))}
+            </div>
+          </div>
           <div className="form-group">
             <label>Catatan (opsional)</label>
             <textarea
