@@ -666,7 +666,7 @@ const CSS = `
   .grid-header.grid-inner { position: sticky; top: 0; z-index: 10; background: var(--bg2); }
   .time-col-sticky { position: sticky; left: 0; background: var(--bg); z-index: 5; border-right: 0.5px solid var(--border); }
   @media (max-width: 600px) {
-    .grid-inner { grid-template-columns: 60px repeat(7, 100px); }
+    .grid-inner { grid-template-columns: 60px repeat(7, 120px); }
   } 
   .grid-header { display: grid; grid-template-columns: 72px repeat(7, 1fr); background: var(--bg2); border-bottom: 0.5px solid var(--border); }
   .gh-cell { padding: 8px 4px; font-size: 12px; font-weight: 500; color: var(--text2); text-align: center; border-right: 0.5px solid var(--border); }
