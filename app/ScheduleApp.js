@@ -312,7 +312,7 @@ function PersonalView({ entries, dates, today, currentUser, tab, onCellClick, on
               ))}
 
               {allEntries.map((e, idx) => {
-                const topPx = (e.time_index + 1) * CELL_HEIGHT
+                const topPx = e.time_index * CELL_HEIGHT
                 const heightPx = (e.duration * 2) * CELL_HEIGHT + CELL_HEIGHT - 4
                 const color = e.cls === 'shared'
                   ? { bg: 'var(--blue-l)', text: 'var(--blue-d)' }
