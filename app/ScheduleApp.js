@@ -358,7 +358,7 @@ function PersonalView({ entries, dates, today, currentUser, tab, onCellClick, on
                     onClick={ev => { ev.stopPropagation(); onEntryClick(di, e.time_index, e, e.cls) }}
                   >
                     <span style={{ fontWeight: 600, fontSize: 11 }}>{e.title}</span>
-                    {e.duration > 0.5 && <span style={{ fontSize: 10, opacity: 0.8 }}>{TIMES[e.time_index]} – {TIMES[e.time_index + e.duration * 2] || ''}</span>}
+                    {e.duration >= 0.5 && <span style={{ fontSize: 10, opacity: 0.8 }}>{TIMES[e.time_index]} – {TIMES[e.time_index + e.duration * 2] || ''}</span>}
                   </div>
                 )
               })}
