@@ -302,38 +302,28 @@ function PersonalView({ entries, dates, today, currentUser, tab, onCellClick, on
 
               {/* Entry mengambang */}
               {allEntries.map(e => {
-                // const topPx = e.time_index * CELL_HEIGHT
-                // // const heightPx = e.duration * CELL_HEIGHT * 2 - 4
-                // const heightPx = (e.duration * 2) * CELL_HEIGHT + CELL_HEIGHT - 4
-                // return (
-                //   <div key={e.id}
-                //     className={`entry ${e.cls}`}
-                //     style={{
-                //       position: 'absolute',
-                //       top: topPx,
-                //       left: 2,
-                //       right: 2,
-                //       height: heightPx,
-                //       margin: 0,
-                //       zIndex: 1,
-                //       overflow: 'hidden',
-                //       cursor: 'pointer',
-                //       display: 'flex',
-                //       flexDirection: 'column',
-                //       justifyContent: 'flex-start',
-                //     }}
-                //     title={e.note || e.title}
-                //     onClick={ev => { ev.stopPropagation(); onEntryClick(di, e.time_index, e, e.cls) }}
-                //   >
-                //     <span style={{ fontWeight: 600, fontSize: 11 }}>{e.title}</span>
-                //     {e.duration > 0.5 && <span style={{ fontSize: 10, opacity: 0.8 }}>{TIMES[e.time_index]} – {TIMES[e.time_index + e.duration * 2] || ''}</span>}
-                //   </div>
-                // )
                 const topPx = e.time_index * CELL_HEIGHT
                 const heightPx = (e.duration * 2) * CELL_HEIGHT + CELL_HEIGHT - 4
                 const color = e.cls === 'shared' 
                   ? { bg: 'var(--blue-l)', text: 'var(--blue-d)' }
                   : (COLORS[e.color] || COLORS.green)
+
+                // Cek apakah ada entry lain yang overlap di waktu yang sama
+                const overlaps = allEntries.filter((other, otherIdx) =>
+                  otherIdx !== idx &&
+                  other.time_index < e.time_index + e.duration * 2 &&
+                  other.time_index + other.duration * 2 > e.time_index
+                )
+                const hasOverlap = overlaps.length > 0
+                const colIndex = hasOverlap ? allEntries.filter((other, otherIdx) =>
+                  otherIdx < idx &&
+                  other.time_index < e.time_index + e.duration * 2 &&
+                  other.time_index + other.duration * 2 > e.time_index
+                ).length : 0
+                const totalCols = hasOverlap ? overlaps.length + 1 : 1
+                const colWidth = 100 / totalCols
+                const leftPct = colIndex * colWidth
+
                 return (
                   <div key={e.id}
                     className="entry"
