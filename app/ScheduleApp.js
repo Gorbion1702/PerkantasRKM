@@ -547,16 +547,22 @@ function EntryModal({ modal, dates, tab, saving, currentUser, onSave, onDelete, 
           <div className="form-group">
             <label>Durasi</label>
             <select value={form.dur} onChange={e => setForm(f => ({ ...f, dur: +e.target.value }))} disabled={!isOwner}>
-              <option value={1}>1 jam</option>
-              <option value={2}>2 jam</option>
-              <option value={3}>3 jam</option>
-              <option value={4}>4 jam</option>
-              <option value={5}>5 jam</option>
-              <option value={6}>6 jam</option>
-              <option value={7}>7 jam</option>
-              <option value={8}>8 jam</option>
-              <option value={9}>9 jam</option>
-              <option value={10}>10 jam</option>         
+                <option value={0.5}>30 menit</option>
+                <option value={1}>1 jam</option>
+                <option value={1.5}>1 jam 30 menit</option>
+                <option value={2}>2 jam</option>
+                <option value={2.5}>2 jam 30 menit</option>
+                <option value={3}>3 jam</option>
+                <option value={3.5}>3 jam 30 menit</option>
+                <option value={4}>4 jam</option>
+                <option value={4.5}>4 jam 30 menit</option>
+                <option value={5}>5 jam</option>
+                <option value={5.5}>5 jam 30 menit</option>
+                <option value={6}>6 jam</option>
+                <option value={6.5}>6 jam 30 menit</option>
+                <option value={7}>7 jam</option>
+                <option value={7.5}>7 jam 30 menit</option>
+                <option value={8}>8 jam</option>       
             </select>
           </div>
           {mode === 'add' && (
