@@ -122,7 +122,7 @@ export default function ScheduleApp() {
       day_index: di,
       time_index: ti,
       title: formData.title,
-      duration: formData.dur,
+      duration: parseFloat(formData.dur),
       note: formData.note || '',
       color: formData.color || 'green',
       author: currentUser,
