@@ -271,7 +271,7 @@ function PersonalView({ entries, dates, today, currentUser, tab, onCellClick, on
   return (
     <div className="schedule-card">
       <div className="grid-header grid-inner">
-        <div className="gh-cell" style={{ fontSize: 11 }}>Waktu</div>
+        <div className="gh-cell time-col-sticky" style={{ fontSize: 11 }}>Waktu</div>
         {dates.map((d, i) => (
           <div key={i} className={`gh-cell${fmtDate(d) === today ? ' today' : ''}`}>
             <div>{DAYS_SHORT[i]}</div>
@@ -284,7 +284,7 @@ function PersonalView({ entries, dates, today, currentUser, tab, onCellClick, on
       <div className="grid-scroll-wrap">
         <div className="grid-inner">
         {/* Kolom waktu */}
-        <div>
+        <div className="time-col-sticky">
           {TIMES.map((t, ti) => (
             <div key={ti} style={{ height: CELL_HEIGHT, borderTop: '0.5px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'flex-end', paddingRight: 8, fontSize: 11, color: 'var(--text3)' }}>
               {t}
@@ -665,9 +665,11 @@ const CSS = `
   .schedule-card { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--rl); overflow: hidden; }
   .grid-scroll-wrap { overflow-x: auto; }
   .grid-inner { display: grid; grid-template-columns: 72px repeat(7, minmax(90px, 1fr)); }
+  .grid-header.grid-inner { position: sticky; top: 0; z-index: 10; background: var(--bg2); }
+  .time-col-sticky { position: sticky; left: 0; background: var(--bg); z-index: 5; border-right: 0.5px solid var(--border); }
   @media (max-width: 600px) {
     .grid-inner { grid-template-columns: 60px repeat(7, 100px); }
-  }
+  } 
   .grid-header { display: grid; grid-template-columns: 72px repeat(7, 1fr); background: var(--bg2); border-bottom: 0.5px solid var(--border); }
   .gh-cell { padding: 8px 4px; font-size: 12px; font-weight: 500; color: var(--text2); text-align: center; border-right: 0.5px solid var(--border); }
   .gh-cell:last-child { border-right: none; }
