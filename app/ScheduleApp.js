@@ -6,6 +6,7 @@ import { supabase } from '../lib/supabase'
 const STAFF = [
   'Yemima', 'Riris', 'Diana', 'Metty', 'Bembem', 'Yolanda', 'Gnade', 'Eva', 'Hizkia', 'Jason'
 ]
+const ADMINS = ['Yemima', 'Metty']
 const DAYS_SHORT = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min']
 const DAYS_FULL = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu']
 const TIMES = [
@@ -117,6 +118,14 @@ export default function ScheduleApp() {
     setSaving(true)
     const { di, ti, entry, type: editType } = modal
     const isShared = formData.type === 'shared' || (modal.mode === 'edit' && editType === 'shared')
+
+    // Cek izin jadwal bersama
+    if (isShared && !ADMINS.includes(currentUser)) {
+      alert('Hanya Yemima dan Metty yang bisa mengelola jadwal bersama.')
+      setSaving(false)
+      return
+    }
+
     const payload = {
       week_start: weekStart,
       day_index: di,
@@ -558,11 +567,20 @@ function EntryModal({ modal, dates, tab, saving, currentUser, onSave, onDelete, 
             </select>
           </div>
           {mode === 'add' && (
+            // <div className="form-group">
+            //   <label>Jenis jadwal</label>
+            //   <select value={form.type} onChange={e => setForm(f => ({ ...f, type: e.target.value }))}>
+            //     <option value="personal">Pribadi (hanya saya yang lihat)</option>
+            //     <option value="shared">Bersama (semua staf bisa lihat & edit)</option>
+            //   </select>
+            // </div>
             <div className="form-group">
               <label>Jenis jadwal</label>
               <select value={form.type} onChange={e => setForm(f => ({ ...f, type: e.target.value }))}>
                 <option value="personal">Pribadi (hanya saya yang lihat)</option>
-                <option value="shared">Bersama (semua staf bisa lihat & edit)</option>
+                {ADMINS.includes(currentUser) && (
+                  <option value="shared">Bersama (semua staf bisa lihat)</option>
+                )}
               </select>
             </div>
           )}
